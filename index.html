@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XENNG // Rhythm Rebel</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+body {
+    margin:0;
+    background:black;
+    color:white;
+    font-family:'Orbitron', sans-serif;
+    text-align:center;
+    overflow:hidden;
+}
+
+/* TITLE */
+h1 {
+    color:#ff00ff;
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0);}
+    20% { transform: translate(-2px,2px);}
+    40% { transform: translate(2px,-2px);}
+    60% { transform: translate(-1px,1px);}
+    80% { transform: translate(1px,-1px);}
+    100% { transform: translate(0);}
+}
+
+/* BUTTON */
+button {
+    padding:20px;
+    font-size:18px;
+    background:#ff00ff;
+    border:none;
+    cursor:pointer;
+    margin-top:20px;
+    border-radius:10px;
+}
+
+/* COMBO */
+.combo {
+    margin-top:10px;
+    font-size:18px;
+}
+
+/* EMOJIS */
+.emoji {
+    position:absolute;
+    font-size:24px;
+    pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💜 XENNG // RHYTHM REBEL 💜</h1>
+
+<p>💥 Block-slicing. Beat-dancing. Chaos-loving.</p>
+
+<button onclick="chaos()">DO NOT PRESS</button>
+
+<div class="combo">Combo: <span id="combo">0</span></div>
+
+<script>
+let combo = 0;
+let hue = 0;
+
+function chaos(){
+    combo++;
+    document.getElementById("combo").innerText = combo;
+
+    // screen shake
+    document.body.style.transform =
+        "translate(" + (Math.random()*10-5) + "px," + (Math.random()*10-5) + "px)";
+
+    // color shift
+    hue += 20;
+    document.body.style.filter = "hue-rotate(" + hue + "deg)";
+
+    // spawn emoji
+    spawnEmoji();
+
+    // escalating chaos
+    if(combo > 5){
+        document.body.style.animation = "glitch 0.2s infinite";
+    }
+
+    if(combo > 10){
+        document.body.style.background =
+        "linear-gradient(45deg, red, purple, blue)";
+    }
+
+    if(combo > 20){
+        alert("⚠️ YOU BROKE REALITY ⚠️");
+    }
+}
+
+function spawnEmoji(){
+    const e = document.createElement("div");
+    e.className = "emoji";
+    e.innerText = ["💥","⚡","💜","🔥","👾"][Math.floor(Math.random()*5)];
+
+    e.style.left = Math.random()*window.innerWidth + "px";
+    e.style.top = Math.random()*window.innerHeight + "px";
+
+    document.body.appendChild(e);
+
+    setTimeout(()=> e.remove(),2000);
+}
+</script>
+
+</body>
+</html>
